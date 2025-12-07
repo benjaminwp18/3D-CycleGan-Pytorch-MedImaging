@@ -1,3 +1,4 @@
+from pathlib import Path
 import os
 from options.test_options import TestOptions
 import sys
@@ -206,14 +207,24 @@ def inference(model, image_path, result_path, resample, resolution, patch_size_x
     writer.Execute(label)
     print("{}: Save evaluate label at {} success".format(datetime.datetime.now(), result_path))
 
-
-if __name__ == '__main__':
-
-    opt = TestOptions().parse()
-
+def main(opt):
     model = create_model(opt)
     model.setup(opt)
 
-    inference(model, opt.image, opt.result, opt.resample, opt.new_resolution, opt.patch_size[0],
-              opt.patch_size[1], opt.patch_size[2], opt.stride_inplane, opt.stride_layer, 1)
+    if opt.image_dir != '' and opt.result_dir != '':
+        result_dir_path = Path(opt.result_dir)
+        result_dir_path.mkdir(parents=True, exist_ok=True)
+        for image_path in Path(opt.image_dir).glob('*.nii'):
+            print(f'Converting {image_path}')
+            result_path = result_dir_path / (image_path.stem + '.nii')
+            inference(model, str(image_path), result_path, opt.resample, opt.new_resolution, opt.patch_size[0],
+                      opt.patch_size[1], opt.patch_size[2], opt.stride_inplane, opt.stride_layer, 1)
+    elif opt.image_dir != '' or opt.result_dir != '':
+        raise Exception(f'Must define both image_dir ({opt.image_dir}) and result_dir ({opt.result_dir}) or none')
+    else:
+        inference(model, opt.image, opt.result, opt.resample, opt.new_resolution, opt.patch_size[0],
+                  opt.patch_size[1], opt.patch_size[2], opt.stride_inplane, opt.stride_layer, 1)
 
+if __name__ == '__main__':
+    opt = TestOptions().parse()
+    main(opt)

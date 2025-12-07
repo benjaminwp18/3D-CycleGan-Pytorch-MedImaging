@@ -1,0 +1,1 @@
+python train.py --gpu_ids 0 --batch_size 1 --workers 6 --print_freq 1 --lambda_identity 0 --n_layers_D 4 --netG unet_256 --name unet

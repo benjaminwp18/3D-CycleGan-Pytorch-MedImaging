@@ -98,8 +98,7 @@ class BaseOptions():
         self.print_options(opt)
 
         # set gpu ids
-        str_ids = list(opt.gpu_ids)
-        str_ids.remove(',')
+        str_ids = list(opt.gpu_ids.split(','))
         opt.gpu_ids = []
         for str_id in str_ids:
             id = int(str_id)
