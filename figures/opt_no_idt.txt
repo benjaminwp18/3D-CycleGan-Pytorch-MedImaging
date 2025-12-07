@@ -1,0 +1,40 @@
+----------------- Options ---------------
+               batch_size: 1                             	[default: 2]
+          checkpoints_dir: ./checkpoints                 
+                data_path: ./Data_folder/train/          
+             dataset_mode: single                        
+               drop_ratio: 0                             
+                  gpu_ids: 0                             	[default: 2,3]
+                    image: ./Data_folder/results/0.nii   
+                image_dir: Data_folder/train/labels      	[default: ]
+                init_gain: 0.02                          
+                init_type: normal                        
+                 input_nc: 1                             
+                  isTrain: False                         	[default: None]
+                min_pixel: 0.1                           
+                    model: test                          
+             model_suffix: _B                            	[default: ]
+               n_layers_D: 3                             
+                     name: no_id_loss                    	[default: experiment_name]
+                      ndf: 64                            
+                     netD: n_layers                      
+                     netG: resnet_9blocks                
+           new_resolution: (0.45, 0.45, 0.45)            
+                      ngf: 64                            
+               no_dropout: True                          
+                     norm: instance                      
+                output_nc: 1                             
+               patch_size: [128, 128, 64]                
+                    phase: test                          
+                 resample: False                         
+                   result: ./Data_folder/test/images/result_0.nii
+               result_dir: results/no_idt/fake_images/train	[default: ]
+           stride_inplane: 32                            
+             stride_layer: 32                            
+                   suffix:                               
+                 val_path: ./Data_folder/test/           
+                  verbose: False                         
+          which_direction: AtoB                          
+              which_epoch: latest                        
+                  workers: 6                             	[default: 8]
+----------------- End -------------------
